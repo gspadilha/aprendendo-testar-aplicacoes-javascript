@@ -1,5 +1,4 @@
-module.exports.queryString = obj => {
-  return Object.entries(obj)
-    .map(item => `${item[0]}=${item[1].replaceAll(' ', '%20')}`)
+module.exports.queryString = obj =>
+  Object.entries(obj)
+    .map(([key, val]) => `${key}=${val.replaceAll(' ', '%20')}`)
     .join('&');
-};
