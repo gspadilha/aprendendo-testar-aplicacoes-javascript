@@ -1,4 +1,4 @@
-const { queryString } = require('./queryString');
+const { queryString, parse } = require('./queryString');
 
 describe('Object to Query String', () => {
   it('deve criar um query valid a partir de um objeto dado', () => {
@@ -42,5 +42,26 @@ describe('Object to Query String', () => {
     };
 
     expect(() => queryString(obj)).toThrowError();
+  });
+});
+
+describe('Query String to Object', () => {
+  it('deve converter de uma query string para um objeto', () => {
+    const qs = 'name=Guilherme%20Padilha&role=Developer';
+
+    expect(parse(qs)).toEqual({
+      name: 'Guilherme Padilha',
+      role: 'Developer',
+    });
+  });
+});
+
+it('deve converter de uma query string para um objeto com array', () => {
+  const qs =
+    'name=Guilherme%20dos%20Santos%20Padilha&languages=inglês,português';
+
+  expect(parse(qs)).toEqual({
+    name: 'Guilherme dos Santos Padilha',
+    languages: ['inglês', 'português'],
   });
 });
